@@ -1,1 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name:  estore-zone-service 
+  datasourse:
+    driverClassName:  com.mysql.cj.jdbc.Driver
+    url:  jdbc:mysql://localhost:3306/estore_zone_database
+    userName:  root
+    password:  Yellow#123
+  jpa:
+    hibernate:
+      ddl-auto:  update  
+    show-sql:  false    
+      
 

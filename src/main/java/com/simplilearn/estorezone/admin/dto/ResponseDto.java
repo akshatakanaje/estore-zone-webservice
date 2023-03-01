@@ -1,4 +1,4 @@
-package com.simplilearn.estorezone.admin.model;
+package com.simplilearn.estorezone.admin.dto;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Response {
+public class ResponseDto {
 	        
 	private String status;
 	private String message;
