@@ -44,9 +44,4 @@ public class Admins {
 	@Column(name="addedOn")
 	private Date addedOn;
 	
-	
-
-	
-
-
 }
