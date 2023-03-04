@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +19,8 @@ import com.simplilearn.estorezone.admin.dto.ResponseDto;
 import com.simplilearn.estorezone.admin.entity.Products;
 import com.simplilearn.estorezone.repository.ProductsRepository;
 
-@RestController("/v1/products")
+@RestController
+@RequestMapping("/products")
 public class ProductsController {
 	
 	@Autowired
@@ -28,8 +31,8 @@ public class ProductsController {
 	 * @param title
 	 * @return
 	 */
-	@GetMapping("")
-	public List<Products> getAll(@RequestParam("title") String title) {
+	@GetMapping
+	public List<Products> getAll(@RequestParam(value="title", required=false) String title) {
 		if (title != null && title != "") {
 			return productsRepository.findByProductTitleContaining(title);
 		}
@@ -42,7 +45,7 @@ public class ProductsController {
 	 * @return
 	 */
 	@GetMapping("/{productId}")
-	public Optional<Products> getOne(@RequestParam("id") int productId) {
+	public Optional<Products> getOne(@PathVariable("productId") int productId) {
 		return productsRepository.findById(productId);
 	}
 	
@@ -51,7 +54,7 @@ public class ProductsController {
 	 * @param products
 	 * @return
 	 */
-	@PostMapping("")
+	@PostMapping
 	public Products save(@RequestBody Products products) {
 		return productsRepository.save(products);
 	}
@@ -61,10 +64,10 @@ public class ProductsController {
 	 * @param products
 	 * @return
 	 */
-	@PutMapping("")
+	@PutMapping
 	public Products udpate(@RequestBody Products products) {
-		boolean eixts = productsRepository.existsById(products.getProductId());
-		if (eixts) {
+		boolean exists = productsRepository.existsById(products.getProductId());
+		if (exists) {
 			return productsRepository.save(products);
 		}
 		throw new RuntimeException("Product does not exits");
@@ -76,7 +79,7 @@ public class ProductsController {
 	 * @return Optional<Products>
 	 */
 	@DeleteMapping("/{productId}")
-	public ResponseDto deleteOne(@RequestParam("id") int productId) {
+	public ResponseDto deleteOne(@PathVariable("productId") int productId) {
 		boolean exists = productsRepository.existsById(productId);
 		if (exists) {
 			productsRepository.deleteById(productId);
@@ -84,5 +87,4 @@ public class ProductsController {
 		}
 		throw new RuntimeException("Product does not exits");
 	}
-
 }

@@ -8,9 +8,6 @@ public class EstoreZoneWebserviceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EstoreZoneWebserviceApplication.class, args);
-		
-		
-	
 	}
 
 }

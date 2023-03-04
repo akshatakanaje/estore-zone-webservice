@@ -3,15 +3,15 @@ package com.simplilearn.estorezone.admin.entity;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,11 +53,11 @@ public class Products {
 	private int thumbnailImage;
 	
 	@Column(name="price")
-	private int price;
+	private double price;
 	
 	@Column(name="addedOn")
-	private Date addedOn;
+	private Date addedOn = new Date();
 	
 	@Column(name="rating")
-	private int rating;
+	private double rating;
 }
