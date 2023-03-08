@@ -1,5 +1,5 @@
 server:
-  port: 9070
+  port: 8000
   servlet:
     contextPath: /estore_zone_service/api/v1
 spring:

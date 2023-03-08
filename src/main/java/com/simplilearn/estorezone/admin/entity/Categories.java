@@ -43,5 +43,5 @@ public class Categories {
 	private int  active;
 	
 	@Column(name="addedOn")
-	private Date addedOn;
+	private Date addedOn = new Date();
 }

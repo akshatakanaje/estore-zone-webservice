@@ -42,6 +42,6 @@ public class Admins {
 	private int loginType;
 	
 	@Column(name="addedOn")
-	private Date addedOn;
+	private Date addedOn = new Date();
 	
 }

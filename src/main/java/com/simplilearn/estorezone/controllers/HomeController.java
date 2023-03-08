@@ -1,7 +1,6 @@
 package com.simplilearn.estorezone.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,9 +35,9 @@ public class HomeController {
 		return "Today is a woderful day!";
 	}
 	
-	@GetMapping("/users/{userId}")//data/1010293424(whatever we see in the after / it is a path variable
+	/*@GetMapping("/users/{userId}")//data/1010293424(whatever we see in the after / it is a path variable
 	public String dataMapping(@PathVariable("userId") String userId) {
 		return "John has userId : "+userId;
-	}
+	} */
 
 }

@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simplilearn.estorezone.admin.dto.ResponseDto;
 import com.simplilearn.estorezone.admin.entity.Products;
-import com.simplilearn.estorezone.repository.ProductsRepository;
+import com.simplilearn.estorezone.service.ProductsService;
 
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
 	
 	@Autowired
-	ProductsRepository productsRepository;
+	ProductsService productsService;
 	
 	/**
 	 * Get all products or Search product by title like operation.
@@ -34,9 +34,9 @@ public class ProductsController {
 	@GetMapping
 	public List<Products> getAll(@RequestParam(value="title", required=false) String title) {
 		if (title != null && title != "") {
-			return productsRepository.findByProductTitleContaining(title);
+			return productsService.findByProductTitleContaining(title);
 		}
-		return productsRepository.findAll();
+		return productsService.findAll();
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class ProductsController {
 	 */
 	@GetMapping("/{productId}")
 	public Optional<Products> getOne(@PathVariable("productId") int productId) {
-		return productsRepository.findById(productId);
+		return productsService.findById(productId);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class ProductsController {
 	 */
 	@PostMapping
 	public Products save(@RequestBody Products products) {
-		return productsRepository.save(products);
+		return productsService.save(products);
 	}
 	
 	/**
@@ -66,10 +66,10 @@ public class ProductsController {
 	 */
 	@PutMapping
 	public Products udpate(@RequestBody Products products) {
-		boolean exists = productsRepository.existsById(products.getProductId());
+		boolean exists = productsService.existsById(products.getProductId());
 		if (exists) {
-			return productsRepository.save(products);
-		}
+			return productsService.save(products);
+		} 
 		throw new RuntimeException("Product does not exits");
 	}
 	
@@ -80,9 +80,9 @@ public class ProductsController {
 	 */
 	@DeleteMapping("/{productId}")
 	public ResponseDto deleteOne(@PathVariable("productId") int productId) {
-		boolean exists = productsRepository.existsById(productId);
+		boolean exists = productsService.existsById(productId);
 		if (exists) {
-			productsRepository.deleteById(productId);
+			productsService.deleteById(productId);
 			return new ResponseDto("Success","Product deleted", new Date(), null);
 		}
 		throw new RuntimeException("Product does not exits");

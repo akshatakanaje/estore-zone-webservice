@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +19,15 @@ import com.simplilearn.estorezone.admin.dto.ResponseDto;
 import com.simplilearn.estorezone.admin.entity.Admins;
 import com.simplilearn.estorezone.exceptions.AlreadyExistException;
 import com.simplilearn.estorezone.exceptions.NotFoundException;
-import com.simplilearn.estorezone.repository.AdminsRepository;
+import com.simplilearn.estorezone.service.AdminsService;
 
 @RestController
 @RequestMapping("/admins")
 public class AdminsController {
-	
+		
 	@Autowired
-	AdminsRepository adminsRepository;
+	AdminsService adminsService;
 	
-	BCryptPasswordEncoder passwordEncoder;
 	
 	/**
 	 * Get all or search by email.
@@ -39,9 +37,9 @@ public class AdminsController {
 	@GetMapping
 	public List<Admins> getAll(@RequestParam (value="email", required=false) String email){
 		if(email!= null) {
-			return adminsRepository.findByEmailContaining(email);
+			return adminsService.findByEmailContaining(email);
 		}
-		return adminsRepository.findAll();		
+		return adminsService.findAll();		
 	}
 	
 	/**
@@ -51,7 +49,7 @@ public class AdminsController {
 	 */
 	@GetMapping("/{id}")
 	public Optional<Admins> getOne(@PathVariable("id") int id){		
-	Optional<Admins>adminData =  adminsRepository.findById(id);
+	Optional<Admins>adminData =  adminsService.findById(id);
 	   if(adminData.isPresent()) {
 		      return adminData;
 	   }
@@ -65,12 +63,9 @@ public class AdminsController {
 	 */
 	@PostMapping
 	public Admins save(@RequestBody Admins adminsReq) {
-		boolean exists = adminsRepository.existsByEmail(adminsReq.getEmail());
+		boolean exists = adminsService.existsByEmail(adminsReq.getEmail());
 		if (!exists) {
-			passwordEncoder = new BCryptPasswordEncoder();
-			String encodedPassword = passwordEncoder.encode(adminsReq.getPassword());
-			adminsReq.setPassword(encodedPassword);
-			return adminsRepository.save(adminsReq);
+			return adminsService.save(adminsReq);
 		}
 		throw new AlreadyExistException("Admin user already exist with email '"+adminsReq.getEmail() +"'");
 	}
@@ -80,14 +75,11 @@ public class AdminsController {
 	 * @param Admins
 	 * @return
 	 */
-	@PutMapping("")
+	@PutMapping
 	public Admins udpate(@RequestBody Admins admins) {
-		boolean eixts = adminsRepository.existsById(admins.getAdminId());
-		if (eixts) {
-			passwordEncoder = new BCryptPasswordEncoder();
-			String encodedPassword = passwordEncoder.encode(admins.getPassword());
-			admins.setPassword(encodedPassword);
-			return adminsRepository.save(admins);
+		boolean exists = adminsService.existsById(admins.getAdminId());
+		if (exists) {
+			return adminsService.save(admins);
 		}
 		throw new NotFoundException("Admin user does not exist with id '"+ admins.getAdminId() +"'");
 	}
@@ -99,9 +91,9 @@ public class AdminsController {
 	 */
 	@DeleteMapping("/{id}")
 	public ResponseDto deleteOne(@PathVariable("id") int id) {
-		boolean eixts = adminsRepository.existsById(id);
+		boolean eixts = adminsService.existsById(id);
 		if (eixts) {
-			adminsRepository.deleteById(id);
+			adminsService.deleteById(id);
 			return new ResponseDto("Success","Admin user deleted", new Date(), null);
 		}
 		throw new NotFoundException("Admin user does not exist with id '"+ id +"'");

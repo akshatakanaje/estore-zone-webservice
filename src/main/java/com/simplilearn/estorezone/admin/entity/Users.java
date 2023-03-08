@@ -62,5 +62,5 @@ public class Users {
 	private Long contact;
 	
 	@Column(name="addedOn")
-	private Date addedOn;
+	private Date addedOn = new Date();
 }
