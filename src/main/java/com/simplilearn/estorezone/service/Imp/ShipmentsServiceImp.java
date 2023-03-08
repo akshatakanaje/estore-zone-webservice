@@ -1,9 +1,10 @@
 package com.simplilearn.estorezone.service.Imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.estorezone.admin.entity.Shipments;
@@ -17,13 +18,13 @@ public class ShipmentsServiceImp implements ShipmentsService{
 	ShipmentsRepository shipmentsRepository;
 	
 	@Override
-	public List<Shipments> findByShipmentStatusContaining(String status) {
-		return shipmentsRepository.findByShipmentStatusContaining(status);
+	public Page<Shipments> findByShipmentStatusContaining(String status, Pageable pageable) {
+		return shipmentsRepository.findByShipmentStatusContaining(status, pageable);
 	}
 
 	@Override
-	public List<Shipments> findAll() {
-		return shipmentsRepository.findAll();
+	public Page<Shipments> findAll(Pageable pageable) {
+		return shipmentsRepository.findAll(pageable);
 	}
 
 	@Override

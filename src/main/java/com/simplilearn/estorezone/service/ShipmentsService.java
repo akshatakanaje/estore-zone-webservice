@@ -1,15 +1,17 @@
 package com.simplilearn.estorezone.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.simplilearn.estorezone.admin.entity.Shipments;
 
 public interface ShipmentsService {
 
-	List<Shipments> findByShipmentStatusContaining(String status);
+	Page<Shipments> findByShipmentStatusContaining(String status, Pageable pageable);
 
-	List<Shipments> findAll();
+	Page<Shipments> findAll(Pageable pageable);
 
 	Optional<Shipments> findById(int shipmentId);
 

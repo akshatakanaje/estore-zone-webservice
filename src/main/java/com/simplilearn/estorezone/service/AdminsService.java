@@ -1,15 +1,17 @@
 package com.simplilearn.estorezone.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.simplilearn.estorezone.admin.entity.Admins;
 
 public interface AdminsService {
 
-	List<Admins> findByEmailContaining(String email);
+	Page<Admins> findByEmailContaining(String email, Pageable pageable);
 
-	List<Admins> findAll();
+	Page<Admins> findAll(Pageable pageable);
 
 	Optional<Admins> findById(int id);
 
@@ -20,5 +22,8 @@ public interface AdminsService {
 	boolean existsById(int adminId);
 
 	void deleteById(int id);
+
+
+	
 
 }

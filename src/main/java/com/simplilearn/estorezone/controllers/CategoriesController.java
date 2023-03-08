@@ -1,10 +1,11 @@
 package com.simplilearn.estorezone.controllers;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,11 +35,11 @@ public class CategoriesController {
 	 * @return
 	 */
 	@GetMapping
-	public List<Categories> getAll(@RequestParam(value="title", required=false) String title){
+	public Page<Categories> getAll(@RequestParam(value="title", required=false) String title, Pageable pageable){
 		if(title != null && title != "") {
-			return  categoriesService.findByCategoryNameContaining(title);
+			return  categoriesService.findByCategoryNameContaining(title, pageable);
 		}
-		return  categoriesService.findAll();
+		return  categoriesService.findAll(pageable);
 	}
 	
 	/**

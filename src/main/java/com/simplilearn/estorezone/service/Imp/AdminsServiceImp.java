@@ -1,9 +1,10 @@
 package com.simplilearn.estorezone.service.Imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,13 @@ public class AdminsServiceImp implements AdminsService{
 	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
-	public List<Admins> findByEmailContaining(String email) {	
-		return adminsRepository.findByEmailContaining(email);
+	public Page<Admins> findByEmailContaining(String email, Pageable pageable) {	
+		return adminsRepository.findByEmailContaining(email, pageable);
 	}
 
 	@Override
-	public List<Admins> findAll() {		
-		return adminsRepository.findAll();
+	public Page<Admins> findAll(Pageable pageable) {		
+		return adminsRepository.findAll(pageable);
 	}
 
 	@Override

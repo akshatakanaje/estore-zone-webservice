@@ -1,9 +1,10 @@
 package com.simplilearn.estorezone.service.Imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.estorezone.admin.entity.Categories;
@@ -17,13 +18,13 @@ public class CategoriesServiceImp implements CategoriesService{
     CategoriesRepository categoriesRepository;
 	
 	@Override
-	public List<Categories> findByCategoryNameContaining(String title) {		
-		return categoriesRepository.findByCategoryNameContaining(title);
+	public Page<Categories> findByCategoryNameContaining(String title, Pageable pageable) {		
+		return categoriesRepository.findByCategoryNameContaining(title, pageable);
 	}
 
 	@Override
-	public List<Categories> findAll() {
-		return categoriesRepository.findAll();
+	public Page<Categories> findAll(Pageable pageable) {
+		return categoriesRepository.findAll(pageable);
 	}
 
 	@Override

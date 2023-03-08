@@ -1,15 +1,17 @@
 package com.simplilearn.estorezone.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.simplilearn.estorezone.admin.entity.Categories;
 
 public interface CategoriesService {
 
-	List<Categories> findByCategoryNameContaining(String title);
+	Page<Categories> findByCategoryNameContaining(String title, Pageable pageable);
 
-	List<Categories> findAll();
+	Page<Categories> findAll(Pageable pageable);
 
 	Optional<Categories> findById(int id);
 

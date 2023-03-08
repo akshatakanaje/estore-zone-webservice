@@ -1,9 +1,10 @@
 package com.simplilearn.estorezone.service.Imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.estorezone.admin.entity.Users;
@@ -17,13 +18,13 @@ public class UsersServiceImp implements UsersService{
     UsersRepository usersRepository;
 	
 	@Override
-	public List<Users> findByEmailContaining(String email) {
-		return usersRepository.findByEmailContaining(email);
+	public Page<Users> findByEmailContaining(String email, Pageable pageable) {
+		return usersRepository.findByEmailContaining(email, pageable);
 	}
 
 	@Override
-	public List<Users> findAll() {
-		return usersRepository.findAll();
+	public Page<Users> findAll(Pageable pageable) {
+		return usersRepository.findAll(pageable);
 	}
 
 	@Override

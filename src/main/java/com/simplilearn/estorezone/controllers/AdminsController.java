@@ -1,10 +1,11 @@
 package com.simplilearn.estorezone.controllers;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,11 +36,11 @@ public class AdminsController {
 	 * @return
 	 */
 	@GetMapping
-	public List<Admins> getAll(@RequestParam (value="email", required=false) String email){
+	public Page<Admins> getAll(@RequestParam (value="email", required=false) String email, Pageable pageable){
 		if(email!= null) {
-			return adminsService.findByEmailContaining(email);
+			return adminsService.findByEmailContaining(email, pageable);
 		}
-		return adminsService.findAll();		
+		return adminsService.findAll(pageable);		
 	}
 	
 	/**

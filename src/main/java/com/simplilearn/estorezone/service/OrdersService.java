@@ -1,15 +1,17 @@
 package com.simplilearn.estorezone.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.simplilearn.estorezone.admin.entity.Orders;
 
 public interface OrdersService {
 
-	List<Orders> findByOrderStatusContaining(String status);
+	Page<Orders> findByOrderStatusContaining(String status, Pageable pageable);
 
-	List<Orders> findAll();
+	Page<Orders> findAll(Pageable pageable);
 
 	Optional<Orders> findById(int orderId);
 

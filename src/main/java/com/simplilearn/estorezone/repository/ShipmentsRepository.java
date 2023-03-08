@@ -1,7 +1,7 @@
 package com.simplilearn.estorezone.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.simplilearn.estorezone.admin.entity.Shipments;
@@ -9,7 +9,7 @@ import com.simplilearn.estorezone.admin.entity.Shipments;
 @Repository
 public interface ShipmentsRepository extends JpaRepository<Shipments, Integer>{
 
-	List<Shipments> findByShipmentStatusContaining(String status);
+	Page<Shipments> findByShipmentStatusContaining(String status, Pageable pageable);
 
 	boolean existsByShipmentStatus(int shipmentStatus);
 

@@ -1,15 +1,15 @@
 package com.simplilearn.estorezone.service;
 
-import java.util.List;
 import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.simplilearn.estorezone.admin.entity.Products;
 
 public interface ProductsService {
 
-	List<Products> findByProductTitleContaining(String title);
+	Page<Products> findByProductTitleContaining(String title, Pageable pageable);
 
-	List<Products> findAll();
+	Page<Products> findAll(Pageable pageable);
 
 	Optional<Products> findById(int productId);
 
@@ -18,5 +18,7 @@ public interface ProductsService {
 	boolean existsById(int productId);
 
 	void deleteById(int productId);
+
+	
 
 }

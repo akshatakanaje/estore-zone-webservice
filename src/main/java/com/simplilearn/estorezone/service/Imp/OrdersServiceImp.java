@@ -1,9 +1,10 @@
 package com.simplilearn.estorezone.service.Imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.estorezone.admin.entity.Orders;
@@ -17,13 +18,13 @@ public class OrdersServiceImp implements OrdersService{
 	OrdersRepository ordersRepository;
 	
 	@Override
-	public List<Orders> findByOrderStatusContaining(String status) {
-		return ordersRepository.findByOrderStatusContaining(status);
+	public Page<Orders> findByOrderStatusContaining(String status, Pageable pageable) {
+		return ordersRepository.findByOrderStatusContaining(status, pageable);
 	}
 
 	@Override
-	public List<Orders> findAll() {
-		return ordersRepository.findAll();
+	public Page<Orders> findAll(Pageable pageable) {
+		return ordersRepository.findAll(pageable);
 	}
 
 	@Override

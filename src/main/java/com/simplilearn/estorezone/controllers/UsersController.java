@@ -1,10 +1,11 @@
 package com.simplilearn.estorezone.controllers;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,11 +38,11 @@ public class UsersController {
 	 * @return
 	 */
 	@GetMapping
-	public List<Users> getAll(@RequestParam(value="email", required = false) String email){
+	public Page<Users> getAll(@RequestParam(value="email", required = false) String email,  Pageable pageable){
 		if(email!= null) {
-			return usersService.findByEmailContaining(email);
+			return usersService.findByEmailContaining(email, pageable);
 		}
-		return usersService.findAll();
+		return usersService.findAll(pageable);
 	}
 	
 	/**

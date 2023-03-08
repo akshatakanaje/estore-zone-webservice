@@ -1,9 +1,10 @@
 package com.simplilearn.estorezone.service.Imp;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.estorezone.admin.entity.Products;
@@ -17,13 +18,13 @@ public class ProductsServiceImp implements ProductsService{
 	ProductsRepository productsRepository;
 	
 	@Override
-	public List<Products> findByProductTitleContaining(String title) {
-		return productsRepository.findByProductTitleContaining(title);
+	public Page<Products> findByProductTitleContaining(String title, Pageable pageable) {
+		return productsRepository.findByProductTitleContaining(title, pageable);
 	}
 
 	@Override
-	public List<Products> findAll() {
-		return productsRepository.findAll();
+	public Page<Products> findAll(Pageable pageable) {
+		return productsRepository.findAll(pageable);
 	}
 
 	@Override
