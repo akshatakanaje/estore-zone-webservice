@@ -19,6 +19,9 @@ public class AdminsServiceImp implements AdminsService{
 	AdminsRepository adminsRepository;
 	
 	BCryptPasswordEncoder passwordEncoder;
+    //Encryption is the process by which a readable message is converted to an unreadable form to prevent unauthorized parties
+	                                               //from reading it.
+	//Decryption is the process of converting an encrypted message back to its original (readable) format.
 	
 	@Override
 	public Page<Admins> findByEmailContaining(String email, Pageable pageable) {	

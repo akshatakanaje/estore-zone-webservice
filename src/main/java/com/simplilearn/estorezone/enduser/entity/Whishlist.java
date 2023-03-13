@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.simplilearn.estorezone.admin.entity.Products;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "Whishlist")
-public class Whishlist {
+public class WhishList {
 	
 	//wishList model properties
 	@Id
@@ -34,5 +38,8 @@ public class Whishlist {
 	
 	@Column(name="userId")
 	private int userId;
+
+	@Transient
+	private Products products;
 	
 }

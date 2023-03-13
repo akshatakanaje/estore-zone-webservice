@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +28,6 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
-	
-	BCryptPasswordEncoder passwordEncoder;
 	
 	/**
 	 * Get all or search by email.
@@ -65,15 +62,12 @@ public class UsersController {
 	 * @return
 	 */
 	@PostMapping
-	public Users save(@RequestBody Users usersReq) {
-		boolean exists = usersService.existsByEmail(usersReq.getEmail());
+	public Users save(@RequestBody Users users) {
+		boolean exists = usersService.existsByEmail(users.getEmail());
 		if (!exists) {
-			passwordEncoder = new BCryptPasswordEncoder();
-			String encodedPassword = passwordEncoder.encode(usersReq.getPassword());
-			usersReq.setPassword(encodedPassword);
-			return usersService.save(usersReq);
+			return usersService.save(users);
 		}
-		throw new AlreadyExistException("User data already exist with email '"+usersReq.getEmail() +"'");
+		throw new AlreadyExistException("User data already exist with email '"+users.getEmail() +"'");
 	}
 	
 	/**
@@ -82,15 +76,12 @@ public class UsersController {
 	 * @return
 	 */
 	@PutMapping
-	public Users update(@RequestBody Users usersReq) {
-		boolean exists = usersService.existsById(usersReq.getUserId());
+	public Users update(@RequestBody Users users) {
+		boolean exists = usersService.existsById(users.getUserId());
 		if (exists) {
-			passwordEncoder = new BCryptPasswordEncoder();
-			String encodedPassword = passwordEncoder.encode(usersReq.getPassword());
-			usersReq.setPassword(encodedPassword);
-			return usersService.save(usersReq);
+			return usersService.save(users);
 		}
-		throw new AlreadyExistException("User data already exist with email '"+usersReq.getEmail() +"'");
+		throw new AlreadyExistException("User data already exist with email '"+users.getEmail() +"'");
 	}
 	
 	

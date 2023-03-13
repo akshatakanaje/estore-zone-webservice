@@ -35,7 +35,7 @@ public class Shipments {
 	private String  shipmentTitle;
 	
 	@Column(name="shipmentDate")
-	private Date shipmentDate;
+	private Date shipmentDate = new Date();
 	
 	@Column(name="expectedDeliveryDate")
 	private Date  expectedDeliveryDate;

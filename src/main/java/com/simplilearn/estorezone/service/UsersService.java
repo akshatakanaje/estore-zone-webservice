@@ -17,7 +17,7 @@ public interface UsersService {
 
 	boolean existsByEmail(String email);
 
-	Users save(Users usersReq);
+	Users save(Users users);
 
 	boolean existsById(int userId);
 

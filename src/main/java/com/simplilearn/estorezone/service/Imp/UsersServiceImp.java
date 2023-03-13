@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.simplilearn.estorezone.admin.entity.Users;
@@ -16,6 +17,9 @@ public class UsersServiceImp implements UsersService{
 
 	@Autowired
     UsersRepository usersRepository;
+	
+	
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public Page<Users> findByEmailContaining(String email, Pageable pageable) {
@@ -39,6 +43,9 @@ public class UsersServiceImp implements UsersService{
 
 	@Override
 	public Users save(Users usersReq) {
+		passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(usersReq.getPassword());
+		usersReq.setPassword(encodedPassword);
 		return usersRepository.save(usersReq);
 	}
 
@@ -49,8 +56,7 @@ public class UsersServiceImp implements UsersService{
 
 	@Override
 	public void deleteById(int id) {
-		usersRepository.deleteById(id);
-		
+		usersRepository.deleteById(id);		
 	}
 
 }
