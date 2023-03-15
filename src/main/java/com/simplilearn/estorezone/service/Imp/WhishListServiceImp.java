@@ -43,8 +43,8 @@ public class WhishListServiceImp implements WhishListService{
 	}
 
 	@Override
-	public boolean existsByWhishListId(int whishListId) {
-		return  whishListRepository.existsByWhishListId(whishListId);
+	public boolean existsById(int whishListId) {
+		return  whishListRepository.existsById(whishListId);
 	}
 
 	@Override

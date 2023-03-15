@@ -15,7 +15,7 @@ public interface WhishListService {
 
 	Optional<WhishList> findById(int whishListId);
 
-	boolean existsByWhishListId(int whishListId);
+	boolean existsById(int whishListId);
 
 	WhishList save(WhishList whishList);
 

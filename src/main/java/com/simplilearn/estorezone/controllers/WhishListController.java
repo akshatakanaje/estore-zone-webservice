@@ -35,9 +35,9 @@ public class WhishListController {
 	 * @return
 	 */
 	@GetMapping
-	public Page<WhishList> getAll(@RequestParam(value = "UserId", required = false) String UserId, Pageable pageable){
-		if( UserId != null) {
-			return  whishListService.findByUserId(Integer.parseInt(UserId), pageable);
+	public Page<WhishList> getAll(@RequestParam(value = "userId", required = false) String userId, Pageable pageable){
+		if( userId != null) {
+			return  whishListService.findByUserId(Integer.parseInt(userId), pageable);
 		}
 		return whishListService.findAll(pageable);
 	}
@@ -63,7 +63,7 @@ public class WhishListController {
 	 */
 	@PostMapping
 	public WhishList save(@RequestBody WhishList whishList) {
-		boolean exists = whishListService.existsByWhishListId(whishList.getWhishListId());
+		boolean exists = whishListService.existsById(whishList.getWhishListId());
 		if(!exists) {
 			return whishListService.save(whishList);
 		}
@@ -78,7 +78,7 @@ public class WhishListController {
 	 */
 	@PutMapping
 	public WhishList update(@RequestBody WhishList whishList) {
-		boolean exists = whishListService.existsByWhishListId(whishList.getWhishListId());
+		boolean exists = whishListService.existsById(whishList.getWhishListId());
 		if(exists) {
 			return whishListService.save(whishList);
 		}
@@ -92,7 +92,7 @@ public class WhishListController {
 	 */
 	@DeleteMapping("/{whishListId}")
 	public ResponseDto deleteOne(@PathVariable("whishListId") int whishListId) {
-		boolean exists = whishListService.existsByWhishListId(whishListId);
+		boolean exists = whishListService.existsById(whishListId);
 		if(exists) {
 			whishListService.deleteById(whishListId);
 			return new ResponseDto("Success","Cart deleted", new Date(), null);

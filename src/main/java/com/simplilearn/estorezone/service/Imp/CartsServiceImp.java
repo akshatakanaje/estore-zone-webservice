@@ -52,7 +52,8 @@ public class CartsServiceImp implements CartsService{
 	public Page<Carts> fingByUserId(int userId, Pageable pageable) {
 		Page<Carts> carts = cartsRepository.findByUserId(userId, pageable);
 		for (Carts cart : carts.getContent()) {
-			Products product = productsRepository.findById(cart.getProductId()).get();
+			Optional<Products> optional = productsRepository.findById(cart.getProductId());
+			Products product = optional.get();
 			cart.setProducts(product);
 		}
 		return carts;
