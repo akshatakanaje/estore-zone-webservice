@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.simplilearn.estorezone.admin.dto.LoginReqDto;
 import com.simplilearn.estorezone.admin.entity.Admins;
 import com.simplilearn.estorezone.repository.AdminsRepository;
 import com.simplilearn.estorezone.service.AdminsService;
@@ -59,6 +60,14 @@ public class AdminsServiceImp implements AdminsService{
 	@Override
 	public void deleteById(int id) {
 		adminsRepository.deleteById(id);		
+	}
+
+
+	@Override
+	public boolean login(LoginReqDto loginReqDto) {
+		passwordEncoder = new BCryptPasswordEncoder();
+		Admins admins = adminsRepository.findByEmail(loginReqDto.getEmail());
+		return passwordEncoder.matches(loginReqDto.getPassword(), admins.getPassword());
 	}
 
 }
