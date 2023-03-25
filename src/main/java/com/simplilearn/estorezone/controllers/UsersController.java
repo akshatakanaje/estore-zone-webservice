@@ -25,39 +25,42 @@ import com.simplilearn.estorezone.service.UsersService;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-	
+
 	@Autowired
 	UsersService usersService;
-	
+
 	/**
 	 * Get all or search by email.
+	 * 
 	 * @param email
 	 * @return
 	 */
 	@GetMapping
-	public Page<Users> getAll(@RequestParam(value="email", required = false) String email,  Pageable pageable){
-		if(email!= null) {
+	public Page<Users> getAll(@RequestParam(value = "email", required = false) String email, Pageable pageable) {
+		if (email != null) {
 			return usersService.findByEmailContaining(email, pageable);
 		}
 		return usersService.findAll(pageable);
 	}
-	
+
 	/**
 	 * Get user by id
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public Optional<Users> getOne(@PathVariable("id") int id){
+	public Optional<Users> getOne(@PathVariable("id") int id) {
 		Optional<Users> userData = usersService.findById(id);
-		if(userData.isPresent()) {
+		if (userData.isPresent()) {
 			return userData;
+		}
+		throw new NotFoundException("Users data does not exist with id '" + id + "'");
 	}
-		throw new NotFoundException("Users data does not exist with id '"+ id +"'");
-	}
-	
+
 	/**
-	 * Create user 
+	 * Create user
+	 * 
 	 * @param usersReq
 	 * @return
 	 */
@@ -67,11 +70,12 @@ public class UsersController {
 		if (!exists) {
 			return usersService.save(users);
 		}
-		throw new AlreadyExistException("User data already exist with email '"+users.getEmail() +"'");
+		throw new AlreadyExistException("User data already exist with email '" + users.getEmail() + "'");
 	}
-	
+
 	/**
-	 * Update user 
+	 * Update user
+	 * 
 	 * @param usersReq
 	 * @return
 	 */
@@ -81,23 +85,23 @@ public class UsersController {
 		if (exists) {
 			return usersService.save(users);
 		}
-		throw new AlreadyExistException("User data already exist with email '"+users.getEmail() +"'");
+		throw new AlreadyExistException("User data already exist with Id '" + users.getUserId() + "'");
 	}
-	
-	
+
 	/**
 	 * Delete one user by id
+	 * 
 	 * @param userId
-	 * @return 
+	 * @return
 	 */
 	@DeleteMapping("/{id}")
 	public ResponseDto deleteOne(@PathVariable("id") int id) {
 		boolean exists = usersService.existsById(id);
-		if(exists) {
+		if (exists) {
 			usersService.deleteById(id);
-			return new ResponseDto("Success","User deleted", new Date(), null);
+			return new ResponseDto("Success", "User deleted", new Date(), null);
 		}
-		throw new NotFoundException("User does not exist with id '"+ id +"'");
+		throw new NotFoundException("User does not exist with id '" + id + "'");
 
 	}
 }

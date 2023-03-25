@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simplilearn.estorezone.admin.dto.ResponseDto;
 import com.simplilearn.estorezone.admin.entity.Categories;
+import com.simplilearn.estorezone.admin.entity.Users;
 import com.simplilearn.estorezone.exceptions.AlreadyExistException;
 import com.simplilearn.estorezone.exceptions.NotFoundException;
 import com.simplilearn.estorezone.service.CategoriesService;
@@ -74,7 +75,7 @@ public class CategoriesController {
 	 * Update Categories
 	 * @param Categories
 	 * @return
-	 */
+	 
 	@PutMapping
 	public Categories update(@RequestBody Categories categories) {
 		boolean exists =  categoriesService.existsByCategoryName(categories.getCategoryName());
@@ -82,7 +83,23 @@ public class CategoriesController {
 			return categoriesService.save(categories);
 		}
 		throw new NotFoundException("Category does not exist with id '"+ categories.getCategoryId() +"'");
+	} */
+	
+	/**
+	 * Update user
+	 * 
+	 * @param usersReq
+	 * @return
+	 */
+	@PutMapping
+	public Categories update(@RequestBody Categories categories) {
+		boolean exists = categoriesService.existsById(categories.getCategoryId());
+		if (exists) {
+			return categoriesService.save(categories);
+		}
+		throw new AlreadyExistException("Categories data already exist with Id '" + categories.getCategoryId() + "'");
 	}
+
 	
 	/**
 	 * Delete one product by id
