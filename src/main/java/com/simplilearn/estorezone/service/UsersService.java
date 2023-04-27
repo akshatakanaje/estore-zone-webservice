@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.simplilearn.estorezone.admin.dto.LoginReqDto;
 import com.simplilearn.estorezone.admin.entity.Users;
 
 public interface UsersService {
@@ -22,5 +23,9 @@ public interface UsersService {
 	boolean existsById(int userId);
 
 	void deleteById(int id);
+
+	boolean login(LoginReqDto loginReqDto);
+
+	Users findByEmail(String email);
 
 }
