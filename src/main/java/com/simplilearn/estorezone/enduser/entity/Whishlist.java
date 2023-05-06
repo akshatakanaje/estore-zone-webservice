@@ -31,7 +31,7 @@ public class WhishList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="whishListId")
-	private int whishListId;
+	private int whishListId;     //wishlistId
 	
 	@Column(name="productId")
 	private int productId;
